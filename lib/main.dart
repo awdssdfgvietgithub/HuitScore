@@ -4,8 +4,12 @@ import 'package:huit_score/ui/screens/Onboarding/SplashScreen.dart';
 
 void main() {
   runApp(const MaterialApp(
-    title: 'Splash Screen',
-    home: MyApp(),
+    home: SafeArea(
+        child: Scaffold(
+            body: MyApp()
+        )
+    ),
+    debugShowCheckedModeBanner: false,
   ));
 }
 

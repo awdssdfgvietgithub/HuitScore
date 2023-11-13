@@ -54,9 +54,27 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/messi_introduction.png
+
   fonts:
     - family: Inter
       fonts:
-        - asset: assets/fonts/Inter-Bold.ttf
-        - asset: assets/fonts/Inter-Regular.ttf
-        - asset: assets/fonts/Inter-SemiBold.ttf
+        - asset: assets/fonts/Inter.ttf
+          weight: 100
+        - asset: assets/fonts/Inter.ttf
+          weight: 200
+        - asset: assets/fonts/Inter.ttf
+          weight: 300
+        - asset: assets/fonts/Inter.ttf
+          weight: 400
+        - asset: assets/fonts/Inter.ttf
+          weight: 500
+        - asset: assets/fonts/Inter.ttf
+          weight: 600
+        - asset: assets/fonts/Inter.ttf
+          weight: 700
+        - asset: assets/fonts/Inter.ttf
+          weight: 800
+        - asset: assets/fonts/Inter.ttf
+          weight: 900

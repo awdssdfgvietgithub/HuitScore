@@ -6,10 +6,9 @@ class IntroductionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Welcome to the Introduction Screen!'),
-      ),
+    return Image.asset(
+      "assets/messi_introduction.png",
+      fit: BoxFit.cover,
     );
   }
 }

@@ -33,8 +33,9 @@ class SplashScreenState extends State<SplashScreen> {
               'HuitScore',
               style: TextStyle(
                 fontSize: 48,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF212121),
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Inter',
+                color: onSurfaceBlack12,
               ),
             ),
             SizedBox(
