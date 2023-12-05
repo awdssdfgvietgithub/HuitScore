@@ -30,6 +30,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  dropdown_button2: ^2.3.8
+  http: ^1.1.0
+  another_flushbar: ^1.12.30
+  provider: ^6.1.1
+  intl: ^0.18.1
+  cached_network_image: ^3.0.0
+  shimmer: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -55,26 +62,28 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/url_image.json
     - assets/messi_introduction.png
+    - assets/premier_league.png
+    - assets/seria_a.png
+    - assets/laliga.png
+    - assets/ucl.png
+    - assets/uel.png
+    - assets/solid_white.png
 
   fonts:
-    - family: Inter
+    - family: Inter_700
       fonts:
-        - asset: assets/fonts/Inter.ttf
-          weight: 100
-        - asset: assets/fonts/Inter.ttf
-          weight: 200
-        - asset: assets/fonts/Inter.ttf
-          weight: 300
-        - asset: assets/fonts/Inter.ttf
-          weight: 400
-        - asset: assets/fonts/Inter.ttf
-          weight: 500
-        - asset: assets/fonts/Inter.ttf
-          weight: 600
-        - asset: assets/fonts/Inter.ttf
-          weight: 700
-        - asset: assets/fonts/Inter.ttf
-          weight: 800
-        - asset: assets/fonts/Inter.ttf
-          weight: 900
+        - asset: assets/fonts/Inter-Bold.ttf
+    - family: Inter_400
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+    - family: Inter_600
+      fonts:
+        - asset: assets/fonts/Inter-SemiBold.ttf
+    - family: SpaceGrotesk_700
+      fonts:
+        - asset: assets/fonts/SpaceGrotesk-Bold.ttf
+    - family: SpaceGrotesk_400
+      fonts:
+        - asset: assets/fonts/SpaceGrotesk-Regular.ttf

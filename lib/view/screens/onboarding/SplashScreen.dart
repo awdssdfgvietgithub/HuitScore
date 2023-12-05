@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:huit_score/ui/screens/Onboarding/IntroductionScreen.dart';
 import '../../../theme/colors.dart';
-import '../Home/HomeScreen.dart';
+import '../../../utils/Routes/RoutesName.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,8 +14,9 @@ class SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const IntroductionScreen()));
+      Navigator.pushReplacementNamed(context, RoutesName.introduce);
+      // Navigator.of(context).pushReplacement(
+      //     MaterialPageRoute(builder: (context) => const IntroductionScreen()));
     });
   }
 
@@ -33,8 +33,7 @@ class SplashScreenState extends State<SplashScreen> {
               'HuitScore',
               style: TextStyle(
                 fontSize: 48,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Inter',
+                fontFamily: 'Inter_700',
                 color: onSurfaceBlack12,
               ),
             ),
