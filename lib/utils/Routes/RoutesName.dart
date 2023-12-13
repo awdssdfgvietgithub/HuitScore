@@ -5,4 +5,5 @@ class RoutesName {
   static const String home = 'home_screen';
   static const String explore = 'explore_screen';
   static const String news = 'news_screen';
+  static const String matchesAllScreen = 'matches_all_screen';
 }

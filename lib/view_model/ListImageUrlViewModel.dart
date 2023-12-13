@@ -8,8 +8,12 @@ class ListImageUrlViewModel with ChangeNotifier {
 
   List<ImageUrlModel> imageUrls = [];
 
-  Future<void> fetchImageUrls() async {
-    _myRepo.fetchImageUrl().then((value) => {imageUrls = value});
+  setImageUrls(List<ImageUrlModel> response) {
+    imageUrls = response;
     notifyListeners();
+  }
+
+  Future<void> fetchImageUrls() async {
+    _myRepo.fetchImageUrl().then((value) => {setImageUrls(value)});
   }
 }

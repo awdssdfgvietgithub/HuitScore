@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huit_score/view_model/HomeViewModel.dart';
 import 'package:huit_score/view_model/ListImageUrlViewModel.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../model/ImageResModel.dart';
+import '../../data/local/mock/ImageResModel.dart';
 import '../../model/MatchScheduleModel.dart';
 import '../../theme/colors.dart';
 import 'MatchItem.dart';
@@ -70,9 +72,20 @@ class ContainerByLeague extends StatelessWidget {
                 itemCount: list.length,
                 itemBuilder: (context, index) {
                   return MatchItem(
-                      model: list[index],
-                      homeTeamImageUrl: "",
-                      awayTeamImageUrl: "");
+                    model: list[index],
+                    homeTeamImageUrl: listImageUrlViewModel.imageUrls
+                            .firstWhere((item) =>
+                                item.id == list[index].homeTeam?.id.toString())
+                            .url ??
+                        '',
+                    awayTeamImageUrl: listImageUrlViewModel.imageUrls
+                            .firstWhere((item) =>
+                                item.id == list[index].awayTeam?.id.toString())
+                            .url ??
+                        '',
+                    // homeTeamImageUrl: '',
+                    // awayTeamImageUrl: '',
+                  );
                 }),
           ],
         ));

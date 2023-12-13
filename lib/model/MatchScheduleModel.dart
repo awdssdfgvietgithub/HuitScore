@@ -16,6 +16,7 @@ class MatchScheduleModel {
   ShortTeamModel? awayTeam;
   int? homeScore;
   int? awayScore;
+  int? matchTimestamp;
   int? startTimestamp;
   String? slug;
 
@@ -29,6 +30,7 @@ class MatchScheduleModel {
       this.awayTeam,
       this.homeScore,
       this.awayScore,
+      this.matchTimestamp,
       this.startTimestamp,
       this.slug});
 }

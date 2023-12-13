@@ -7,11 +7,8 @@ extension IntParsing on int {
     log("this: $this");
     DateTime dateTime =
         DateTime.fromMillisecondsSinceEpoch(this * 1000, isUtc: true);
-    log("dateTime: $dateTime");
 
     dateTime = dateTime.add(const Duration(hours: 7));
-    log("dateTime +7: $dateTime");
-
 
     return dateTime;
   }

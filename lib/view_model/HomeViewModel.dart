@@ -18,6 +18,7 @@ class HomeViewModel with ChangeNotifier {
   List<MatchScheduleModel> seriaAMatches = [];
   List<MatchScheduleModel> ligue1Matches = [];
   List<MatchScheduleModel> bundesligaMatches = [];
+  List<MatchScheduleModel> liveMatches = [];
 
   setMatchSchedules(ApiResponse<MatchScheduleModel> response) {
     matchSchedules = response;
@@ -70,5 +71,12 @@ class HomeViewModel with ChangeNotifier {
             .toList() ??
         [];
     log("bundesligaMatches ${bundesligaMatches.length}");
+
+    liveMatches = matchSchedules.data
+            ?.where((item) =>
+                item.statusMatch?.code == 6 || item.statusMatch?.code == 7)
+            .toList() ??
+        [];
+    log("liveMatches ${liveMatches.length}");
   }
 }

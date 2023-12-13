@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:huit_score/view/screens/explore/matches/MatchesAllScreen.dart';
 import '../../../utils/Routes/RoutesName.dart';
 import 'package:huit_score/view/screens/AppScaffold.dart';
 import 'package:huit_score/view/screens/Explore/ExploreScreen.dart';
@@ -34,6 +35,10 @@ class Routes {
       case RoutesName.news:
         return MaterialPageRoute(
             builder: (BuildContext context) => const NewsScreen());
+
+      // case RoutesName.matchesAllScreen:
+      //   return MaterialPageRoute(
+      //       builder: (BuildContext context) => const MatchesAllScreen());
 
       default:
         return MaterialPageRoute(builder: (_) {

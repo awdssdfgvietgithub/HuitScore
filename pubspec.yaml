@@ -37,6 +37,7 @@ dependencies:
   intl: ^0.18.1
   cached_network_image: ^3.0.0
   shimmer: ^3.0.0
+  flutter_svg: ^2.0.9
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -67,9 +68,12 @@ flutter:
     - assets/premier_league.png
     - assets/seria_a.png
     - assets/laliga.png
+    - assets/ligue_1.png
+    - assets/bundesliga.png
     - assets/ucl.png
     - assets/uel.png
     - assets/solid_white.png
+    - assets/not_found.svg
 
   fonts:
     - family: Inter_700

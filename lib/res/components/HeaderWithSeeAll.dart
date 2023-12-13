@@ -7,15 +7,26 @@ class HeaderWithSeeAll extends StatelessWidget {
   final String title;
   final bool isShowSeeAllButton;
   final VoidCallback onSeeAllClicked;
+  final bool isShowAllMatches;
 
   const HeaderWithSeeAll(
       {super.key,
       required this.isShowSeeAllButton,
       required this.title,
-      required this.onSeeAllClicked});
+      required this.onSeeAllClicked,
+      required this.isShowAllMatches});
 
   @override
   Widget build(BuildContext context) {
+    IconData seeAllIcon;
+    String seeAllTile;
+    if (isShowAllMatches) {
+      seeAllIcon = Icons.keyboard_arrow_down_rounded;
+      seeAllTile = 'Show less';
+    } else {
+      seeAllIcon = Icons.keyboard_arrow_right_rounded;
+      seeAllTile = 'Show more';
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Row(
@@ -38,12 +49,12 @@ class HeaderWithSeeAll extends StatelessWidget {
                 onTap: () {
                   onSeeAllClicked();
                 },
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'See all',
-                      style: TextStyle(
+                      seeAllTile,
+                      style: const TextStyle(
                         fontSize: 14,
                         fontFamily: 'Inter_600',
                         color: primary,
@@ -51,7 +62,7 @@ class HeaderWithSeeAll extends StatelessWidget {
                       ),
                     ), // Button text
                     Icon(
-                      Icons.keyboard_arrow_right_outlined,
+                      seeAllIcon,
                       size: 17,
                       color: primary,
                     ),

@@ -90,7 +90,6 @@ class _IntroductionContent extends State<IntroductionContent> {
                           context
                               .pushReplacementWithSlideTransitionClearBackstack(
                                   const AppScaffold());
-                          Utils.flushBarErrorMessage("No connection", context);
                         },
                         buttonText: 'Lets start',
                       ),

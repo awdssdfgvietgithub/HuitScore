@@ -1,7 +1,7 @@
 import 'CategoryModel.dart';
 
 class TournamentModel {
-  int? tournamentId; //1: premier league
+  int? tournamentId;
   String? tournamentName;
   CategoryModel? category;
 

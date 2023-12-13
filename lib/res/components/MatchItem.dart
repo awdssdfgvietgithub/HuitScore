@@ -23,6 +23,7 @@ class MatchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log("homeTeamUrl: $homeTeamImageUrl\nawayTeamUrl: $awayTeamImageUrl");
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Row(
@@ -160,22 +161,22 @@ class MatchPrepared extends StatefulWidget {
 class _MatchPreparedState extends State<MatchPrepared> {
   String result = 'N/a';
 
-  @override
-  void initState() {
-    super.initState();
-    checkDate(widget.startTimestamp.parseToDate()).then((value) => {
-          setState(() {
-            result = value;
-          })
-        });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   checkDate(widget.startTimestamp.parseToDate()).then((value) => {
+  //         setState(() {
+  //           result = value;
+  //         })
+  //       });
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          '${result.toUpperCase()}\n${widget.startTimestamp.parseToDateHM()}',
+          '${DateFormat('dd/MM/yyyy').format(widget.startTimestamp.parseToDate())}\n${widget.startTimestamp.parseToDateHM()}',
           style: const TextStyle(
             fontSize: 12,
             color: onSurfaceBlack8,

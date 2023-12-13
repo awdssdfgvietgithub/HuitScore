@@ -1,6 +1,6 @@
 class ImageUrlModel {
-  int? id;
-  String? url;
+  String? id = '-1';
+  String? url = '';
 
   ImageUrlModel({this.id, this.url});
 }

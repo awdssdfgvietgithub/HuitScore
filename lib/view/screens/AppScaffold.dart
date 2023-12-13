@@ -34,7 +34,7 @@ class _MyScaffold extends State<MyScaffold> {
     return Scaffold(
         body: IndexedStack(
           index: _selectedIndex,
-          children: [HomeScreen(), ExploreScreen(), NewsScreen()],
+          children: const [HomeScreen(), ExploreScreen(), NewsScreen()],
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[

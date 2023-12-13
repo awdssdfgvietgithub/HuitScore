@@ -141,3 +141,117 @@ class HomeTopShimmer extends StatelessWidget {
     );
   }
 }
+
+class HomeTopShimmer2 extends StatelessWidget {
+  const HomeTopShimmer2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: surface,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Row(
+              children: [
+                Shimmer.fromColors(
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.grey.shade100,
+                  child: Container(
+                    height: 35,
+                    width: 35,
+                    color: surface,
+                  ),
+                ),
+                const Spacer(),
+                Shimmer.fromColors(
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.grey.shade100,
+                  child: Container(
+                    height: 20,
+                    width: 20,
+                    color: surface,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          Padding(
+            padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  width: 88,
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Container(
+                          height: 36,
+                          width: 36,
+                          color: surface,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Container(
+                          height: 17,
+                          width: 88,
+                          color: surface,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              Shimmer.fromColors(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade100,
+                child: Container(
+                  height: 28,
+                  width: 100,
+                  color: surface,
+                ),
+              ),
+                Container(
+                  width: 88,
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Container(
+                          height: 36,
+                          width: 36,
+                          color: surface,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Container(
+                          height: 17,
+                          width: 88,
+                          color: surface,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

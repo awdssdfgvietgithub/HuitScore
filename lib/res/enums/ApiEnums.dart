@@ -1,16 +1,17 @@
 // ignore_for_file: constant_identifier_names
 
 enum TournamentId {
-  PREMIER_LEAGUE(1, 'assets/premier_league.png'),
-  LALIGA(36, 'assets/laliga.png'),
-  SERIA_A(33, 'assets/seria_a.png'),
-  LIGUE_1(4, 'assets/ligue_1.png'),
-  BUNDESLIGA(42, 'assets/bundesliga.png');
+  PREMIER_LEAGUE(17, 'assets/premier_league.png', 52186),
+  LALIGA(8, 'assets/laliga.png', 52376),
+  SERIA_A(23, 'assets/seria_a.png', 52760),
+  LIGUE_1(34, 'assets/ligue_1.png', 52571),
+  BUNDESLIGA(35, 'assets/bundesliga.png', 52608);
 
-  const TournamentId(this.id, this.resString);
+  const TournamentId(this.id, this.resString, this.currentSeasonId);
 
   final int id;
   final String resString;
+  final int currentSeasonId;
 }
 
 List<int> tournamentIds = [

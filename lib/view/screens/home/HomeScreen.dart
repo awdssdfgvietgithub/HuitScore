@@ -1,16 +1,20 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:huit_score/model/ImageUrlModel.dart';
 import 'package:huit_score/model/MatchScheduleModel.dart';
 import 'package:huit_score/res/components/ContainerByLeague.dart';
+import 'package:huit_score/res/components/LiveMatchItem.dart';
 import 'package:huit_score/view_model/ListImageUrlViewModel.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../../data/response/Status.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/local/mock/ImageResModel.dart';
 import '../../../res/components/ContentsContainer.dart';
 import '../../../res/components/HeaderWithSeeAll.dart';
 import '../../../res/components/HomeTopShimmer.dart';
-import '../../../res/components/MatchItem.dart';
+import '../../../res/components/NotFoundMatches.dart';
 import '../../../theme/colors.dart';
 import '../../../view_model/HomeViewModel.dart';
 
@@ -24,6 +28,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreen extends State<HomeScreen> {
   final HomeViewModel _homeViewModel = HomeViewModel();
   final ListImageUrlViewModel _imageUrlViewModel = ListImageUrlViewModel();
+
+  bool isShowAllLiveMatches = false;
 
   @override
   void initState() {
@@ -49,37 +55,99 @@ class _HomeScreen extends State<HomeScreen> {
           padding: const EdgeInsets.only(top: 24),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 ContentsContainer(
                   title: HeaderWithSeeAll(
-                    title: 'Live Now',
-                    isShowSeeAllButton: true,
-                    onSeeAllClicked: () {},
-                  ),
+                      title: 'Live Now',
+                      isShowSeeAllButton: true,
+                      onSeeAllClicked: () {
+                        setState(() {
+                          isShowAllLiveMatches =
+                              !isShowAllLiveMatches; // Update the flag to show all items
+                        });
+                      },
+                      isShowAllMatches: isShowAllLiveMatches),
                   content: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                    height: 200, // Adjust the height as needed
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const VerticalDivider(
-                        width: 8,
-                        thickness: 0,
-                        color: background,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          width: 200,
-                          height: double.infinity,
-                          color: Colors.blue,
-                          child: Column(
-                            children: [
-                              Text('Item $index'),
-                            ],
-                          ),
-                        );
+                    child: Consumer<HomeViewModel>(
+                      builder: (context, model, _) {
+                        switch (model.matchSchedules.status) {
+                          case Status.LOADING:
+                            return ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: 3,
+                                itemBuilder: (context, index) {
+                                  return const HomeTopShimmer2();
+                                });
+                          case Status.ERROR:
+                            return Text(
+                                model.matchSchedules.message.toString());
+                          case Status.SUCCESS:
+                            List<MatchScheduleModel> liveMatches =
+                                model.liveMatches;
+                            return Column(
+                              children: [
+                                if (model.liveMatches.isEmpty) ...[
+                                  const NotFoundMatches()
+                                ] else ...[
+                                  ListView.builder(
+                                      shrinkWrap: true,
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      itemCount: isShowAllLiveMatches
+                                          ? liveMatches.length
+                                          : min(3, liveMatches.length),
+                                      itemBuilder: (context, index) {
+                                        return LiveMatchItem(
+                                          model: liveMatches[index],
+                                          homeTeamImageUrl: _imageUrlViewModel
+                                                  .imageUrls
+                                                  .firstWhere(
+                                                      (item) =>
+                                                          item.id ==
+                                                          (liveMatches[index]
+                                                                  .homeTeam
+                                                                  ?.id)
+                                                              .toString(),
+                                                      orElse: () =>
+                                                          ImageUrlModel())
+                                                  .url ??
+                                              '',
+                                          awayTeamImageUrl: _imageUrlViewModel
+                                                  .imageUrls
+                                                  .firstWhere(
+                                                      (item) =>
+                                                          item.id ==
+                                                          (liveMatches[index]
+                                                                  .awayTeam
+                                                                  ?.id)
+                                                              .toString(),
+                                                      orElse: () =>
+                                                          ImageUrlModel())
+                                                  .url ??
+                                              '',
+                                          resStringFound: mockImageResData
+                                                  .firstWhere(
+                                                      (item) =>
+                                                          item.id ==
+                                                          liveMatches[index]
+                                                              .tournament
+                                                              ?.tournamentId,
+                                                      orElse: () =>
+                                                          ImageResModel())
+                                                  .resString ??
+                                              '',
+                                        );
+                                      }),
+                                ],
+                              ],
+                            );
+                          case null:
+                        }
+                        return Container();
                       },
                     ),
                   ),
@@ -87,10 +155,10 @@ class _HomeScreen extends State<HomeScreen> {
                 const SizedBox(height: 24),
                 ContentsContainer(
                   title: HeaderWithSeeAll(
-                    title: 'Top',
-                    isShowSeeAllButton: true,
-                    onSeeAllClicked: () {},
-                  ),
+                      title: 'Top',
+                      isShowSeeAllButton: false,
+                      onSeeAllClicked: () {},
+                      isShowAllMatches: isShowAllLiveMatches),
                   content: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 24.0),
                     child: Consumer<HomeViewModel>(
@@ -110,6 +178,13 @@ class _HomeScreen extends State<HomeScreen> {
                           case Status.SUCCESS:
                             return Column(
                               children: [
+                                if (model.premierLeagueMatches.isEmpty &&
+                                    model.laligaMatches.isEmpty &&
+                                    model.seriaAMatches.isEmpty &&
+                                    model.ligue1Matches.isEmpty &&
+                                    model.bundesligaMatches.isEmpty) ...[
+                                  const NotFoundMatches()
+                                ],
                                 if (model.premierLeagueMatches.isNotEmpty) ...[
                                   ContainerByLeague(
                                       list: model.premierLeagueMatches,
@@ -119,28 +194,28 @@ class _HomeScreen extends State<HomeScreen> {
                                 ],
                                 if (model.laligaMatches.isNotEmpty) ...[
                                   ContainerByLeague(
-                                      list: model.premierLeagueMatches,
+                                      list: model.laligaMatches,
                                       listImageUrlViewModel:
                                           _imageUrlViewModel),
                                   const SizedBox(height: 14)
                                 ],
                                 if (model.seriaAMatches.isNotEmpty) ...[
                                   ContainerByLeague(
-                                      list: model.premierLeagueMatches,
+                                      list: model.seriaAMatches,
                                       listImageUrlViewModel:
                                           _imageUrlViewModel),
                                   const SizedBox(height: 14)
                                 ],
                                 if (model.ligue1Matches.isNotEmpty) ...[
                                   ContainerByLeague(
-                                      list: model.premierLeagueMatches,
+                                      list: model.ligue1Matches,
                                       listImageUrlViewModel:
                                           _imageUrlViewModel),
                                   const SizedBox(height: 14)
                                 ],
                                 if (model.bundesligaMatches.isNotEmpty) ...[
                                   ContainerByLeague(
-                                      list: model.premierLeagueMatches,
+                                      list: model.bundesligaMatches,
                                       listImageUrlViewModel:
                                           _imageUrlViewModel),
                                   const SizedBox(height: 14)
