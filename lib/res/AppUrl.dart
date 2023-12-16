@@ -22,21 +22,44 @@ class AppUrl {
   static const String X_RapidAPI_Key7 =
       '02102079a2msh842de6a4cedd42ep1c3500jsnaa9180147ea2';
 
+  static const String X_RapidAPI_Key8 =
+      '1d673b8767msh8b88befb9fd7420p1015e8jsn7d3557c4fbce';
+
+  static const String X_RapidAPI_Key9 =
+      '3bf423085cmshea459e44d9f4af6p10a3aajsnd8cda79c9b4e';
+
   static var baseUrl = 'https://footapi7.p.rapidapi.com';
 
   static const String X_RapidAPI_Host = 'footapi7.p.rapidapi.com';
 
-  //================================================================================//
-  //get currently top match schedules
+  //=======================================USING=========================================//
+  //get currently top match schedules X_RapidAPI_Key1 || X_RapidAPI_Key2
   static String formatter =
       DateFormat('dd/MM/yyyy').format(DateTime.now().toUtc());
 
   static var matchSchedulesUrl = '$baseUrl/api/matches/top/$formatter';
 
-  //get all schedules in round
+  //get all schedules in round X_RapidAPI_Key3 || X_RapidAPI_Key4
   // https://footapi7.p.rapidapi.com/api/tournament/23/season/52186/matches/round/10
   static var leagueEventsByRound = '$baseUrl/api/tournament';
 
+  //get league total standings X_RapidAPI_Key5
+  //https://footapi7.p.rapidapi.com/api/tournament/7/season/36886/standings/total
+  static var leagueTotalStandings = '$baseUrl/api/tournament';
+
+  //get details match X_RapidAPI_Key6 || X_RapidAPI_Key10
+  //https://footapi7.p.rapidapi.com/api/match/mã trận đấu
+  static var detailsMatch = '$baseUrl/api/match';
+
+  //get lineups match X_RapidAPI_Key7 || X_RapidAPI_Key11
+  //https://footapi7.p.rapidapi.com/api/match/mã trận đấu/lineups
+  static var lineupsMatch = '$baseUrl/api/match';
+
+  //get statistics match X_RapidAPI_Key8 || X_RapidAPI_Key12
+  //https://footapi7.p.rapidapi.com/api/match/mã trận đấu/statistics
+  static var statisticsMatch = '$baseUrl/api/match';
+
+  //=======================================LATER=========================================//
   //get all season in league
   // https://footapi7.p.rapidapi.com/api/tournament/17/seasons
   static var leagueSeasons = '$baseUrl/api/tournament';
@@ -48,8 +71,4 @@ class AppUrl {
   //get top media (url youtube)
   //https://footapi7.p.rapidapi.com/api/tournament/17/media,
   static var leagueMedia = '$baseUrl/api/tournament';
-
-  //get league total standings
-  //https://footapi7.p.rapidapi.com/api/tournament/7/season/36886/standings/total
-  static var leagueTotalStandings = '$baseUrl/api/tournament';
 }

@@ -42,13 +42,11 @@ class ExploreScreen extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-                      log("tournamentId: ${imageRes[index].id}\nseasonId: ${imageRes[index].seasonId}");
                       context.pushReplacementWithSlideTransition(
                         MatchesAllScreen(
                             tournamentId: imageRes[index].id ?? -1,
                             seasonId: imageRes[index].seasonId ?? -1),
                       );
-                      Utils.flushBarErrorMessage("No connection", context);
                     },
                     child: Card(
                       shape: RoundedRectangleBorder(

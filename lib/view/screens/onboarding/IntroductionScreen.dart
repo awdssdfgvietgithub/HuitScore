@@ -47,7 +47,7 @@ class _IntroductionContent extends State<IntroductionContent> {
               bottom: 0,
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 411,
+                height: 450,
                 padding: const EdgeInsets.symmetric(vertical: 48),
                 decoration: const BoxDecoration(
                   color: surface,
@@ -57,7 +57,7 @@ class _IntroductionContent extends State<IntroductionContent> {
                   ),
                 ),
                 child: SizedBox(
-                  height: 200, // Set height as needed
+                  height: 300,
                   child: PageView(
                     controller: _pageController,
                     scrollDirection: Axis.horizontal,
@@ -72,6 +72,8 @@ class _IntroductionContent extends State<IntroductionContent> {
                           );
                         },
                         buttonText: 'Next',
+                        lottieAsset: 'assets/schedule.json',
+                        size: 140,
                       ),
                       IntroductionPage(
                         title: 'Update the fastest football news',
@@ -82,6 +84,8 @@ class _IntroductionContent extends State<IntroductionContent> {
                           );
                         },
                         buttonText: 'Next',
+                        lottieAsset: 'assets/faster.json',
+                        size: 210,
                       ),
                       IntroductionPage(
                         title: 'Wait for what? Let’s get start it!',
@@ -92,6 +96,8 @@ class _IntroductionContent extends State<IntroductionContent> {
                                   const AppScaffold());
                         },
                         buttonText: 'Lets start',
+                        lottieAsset: 'assets/lets_go.json',
+                        size: 140,
                       ),
                     ],
                   ),

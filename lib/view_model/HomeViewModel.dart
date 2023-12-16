@@ -36,7 +36,7 @@ class HomeViewModel with ChangeNotifier {
     });
   }
 
-  void filterLists() {
+  Future<void> filterLists() async {
     premierLeagueMatches = matchSchedules.data
             ?.where((item) =>
                 item.tournament?.tournamentId == TournamentId.PREMIER_LEAGUE.id)
@@ -78,5 +78,9 @@ class HomeViewModel with ChangeNotifier {
             .toList() ??
         [];
     log("liveMatches ${liveMatches.length}");
+  }
+
+  Future<void> refresh() async {
+    await fetchMoviesListApi();
   }
 }

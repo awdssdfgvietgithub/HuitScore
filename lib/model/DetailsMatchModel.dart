@@ -1,38 +1,33 @@
-import 'dart:ffi';
-
-import 'package:huit_score/model/TeamModel.dart';
-
 import 'ShortTeamModel.dart';
 import 'StatusMatchModel.dart';
 import 'TournamentModel.dart';
+import 'VenueModel.dart';
 
-class MatchScheduleModel {
-  int? id;
-  TournamentModel? tournament;
-  int? roundNumber;
-  StatusMatchModel? statusMatch;
-  int? winnerCode; //1: hometeam winner
+class DetailsMatchModel {
   ShortTeamModel? homeTeam;
   ShortTeamModel? awayTeam;
+  TournamentModel? tournament;
+  int? seasonId;
+  int? round;
+  StatusMatchModel? statusMatch;
   int? homeScore;
   int? awayScore;
   int? matchTimestamp;
   int? startTimestamp;
   int? extra;
-  String? slug;
+  VenueModel? venue;
 
-  MatchScheduleModel(
-      {this.id,
-      this.tournament,
-      this.roundNumber,
-      this.statusMatch,
-      this.winnerCode,
-      this.homeTeam,
+  DetailsMatchModel(
+      {this.homeTeam,
       this.awayTeam,
+      this.tournament,
+      this.seasonId,
+      this.round,
+      this.statusMatch,
       this.homeScore,
       this.awayScore,
       this.matchTimestamp,
       this.startTimestamp,
       this.extra,
-      this.slug});
+      this.venue});
 }

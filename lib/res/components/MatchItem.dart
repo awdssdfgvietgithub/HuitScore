@@ -3,10 +3,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:huit_score/model/MatchScheduleModel.dart';
 import 'package:huit_score/res/enums/AppEnums.dart';
+import 'package:huit_score/res/extensions/NavigatorExtension.dart';
 import 'package:huit_score/res/extensions/PrimitiveDTExtension.dart';
 import 'package:intl/intl.dart';
 
 import '../../theme/colors.dart';
+import '../../view/screens/details/InformationMatchScreen.dart';
 import 'NetworkImage.dart';
 
 class MatchItem extends StatelessWidget {
@@ -23,60 +25,72 @@ class MatchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log("homeTeamUrl: $homeTeamImageUrl\nawayTeamUrl: $awayTeamImageUrl");
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return GestureDetector(
+      onTap: () => {
+        context.pushReplacementWithSlideTransition(
+          InformationMatchScreen(matchId: model.id ?? -1),
+        )
+      },
+      child: Container(
+        color: surface,
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppNetworkImage(url: homeTeamImageUrl, size: 17),
-                  const SizedBox(width: 12),
-                  Text(
-                    model.homeTeam?.shortName ?? "N/a",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'Inter_400',
-                      color: onSurfaceBlack12,
-                    ),
+                  Row(
+                    children: [
+                      AppNetworkImage(url: homeTeamImageUrl, size: 17),
+                      const SizedBox(width: 12),
+                      Text(
+                        model.homeTeam?.shortName ?? "N/a",
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Inter_400',
+                          color: onSurfaceBlack12,
+                        ),
+                      )
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      AppNetworkImage(url: awayTeamImageUrl, size: 17),
+                      const SizedBox(width: 12),
+                      Text(
+                        model.awayTeam?.shortName ?? "N/a",
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontFamily: 'Inter_400',
+                          color: onSurfaceBlack12,
+                        ),
+                      )
+                    ],
                   )
                 ],
               ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  AppNetworkImage(url: awayTeamImageUrl, size: 17),
-                  const SizedBox(width: 12),
-                  Text(
-                    model.awayTeam?.shortName ?? "N/a",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'Inter_400',
-                      color: onSurfaceBlack12,
-                    ),
-                  )
-                ],
-              )
+              const Spacer(),
+              if (model.statusMatch?.type == 'inprogress') ...[
+                MatchInProgress(
+                    homeScore: model.homeScore ?? -1,
+                    awayScore: model.awayScore ?? -1,
+                    startTimestamp: model.startTimestamp ?? -1,
+                    matchTimestamp: model.matchTimestamp ?? -1,
+                    extra: model.extra ?? 780),
+              ] else if (model.statusMatch?.code == 100) ...[
+                MatchFinished(
+                    homeScore: model.homeScore ?? -1,
+                    awayScore: model.awayScore ?? -1),
+              ] else ...[
+                MatchPrepared(startTimestamp: model.startTimestamp ?? -1)
+              ],
             ],
           ),
-          const Spacer(),
-          if (model.statusMatch?.type == 'inprogress') ...[
-            MatchInProgress(
-                homeScore: model.homeScore ?? -1,
-                awayScore: model.awayScore ?? -1),
-          ] else if (model.statusMatch?.code == 100) ...[
-            MatchFinished(
-                homeScore: model.homeScore ?? -1,
-                awayScore: model.awayScore ?? -1),
-          ] else ...[
-            MatchPrepared(startTimestamp: model.startTimestamp ?? -1)
-          ],
-        ],
+        ),
       ),
     );
   }
@@ -85,30 +99,52 @@ class MatchItem extends StatelessWidget {
 class MatchInProgress extends StatelessWidget {
   final int homeScore;
   final int awayScore;
+  final int startTimestamp;
+  final int matchTimestamp;
+  final int extra;
 
   const MatchInProgress(
-      {super.key, required this.homeScore, required this.awayScore});
+      {super.key,
+      required this.homeScore,
+      required this.awayScore,
+      required this.startTimestamp,
+      required this.matchTimestamp,
+      required this.extra});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          homeScore.toString(),
+          "${((matchTimestamp + extra * 2 - startTimestamp) / 60).round()}'",
           style: const TextStyle(
             fontSize: 12,
             color: onSurfaceBlue8,
             fontFamily: 'SpaceGrotesk_700',
           ),
         ),
-        const SizedBox(height: 12),
-        Text(
-          awayScore.toString(),
-          style: const TextStyle(
-            fontSize: 12,
-            color: onSurfaceBlue8,
-            fontFamily: 'SpaceGrotesk_700',
-          ),
+        const SizedBox(width: 5),
+        Column(
+          children: [
+            Text(
+              homeScore.toString(),
+              style: const TextStyle(
+                fontSize: 12,
+                color: onSurfaceBlue8,
+                fontFamily: 'SpaceGrotesk_700',
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              awayScore.toString(),
+              style: const TextStyle(
+                fontSize: 12,
+                color: onSurfaceBlue8,
+                fontFamily: 'SpaceGrotesk_700',
+              ),
+            ),
+          ],
         ),
       ],
     );

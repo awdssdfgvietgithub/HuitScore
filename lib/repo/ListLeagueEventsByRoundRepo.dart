@@ -10,7 +10,8 @@ import '../model/TournamentModel.dart';
 import '../res/AppUrl.dart';
 
 class ListLeagueEventsByRoundRepo {
-  final BaseApiServices _apiServices = NetworkApiService1();
+  //X_RapidAPI_Key3 || X_RapidAPI_Key4
+  final BaseApiServices _apiServices = NetworkApiService3();
 
   Future<List<MatchScheduleModel>> fetchMatchSchedules(
       int tournamentId, int seasonId, int round) async {

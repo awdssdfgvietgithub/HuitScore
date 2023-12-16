@@ -14,8 +14,8 @@ class AppNetworkImage extends StatelessWidget {
       width: size,
       child: CachedNetworkImage(
         imageUrl: url,
-        errorWidget: (context, url, error) => const Icon(Icons.error),
-        fit: BoxFit.fill,
+        errorWidget: (context, url, error) => const Icon(Icons.error_outline_rounded),
+        fit: BoxFit.fitHeight,
         filterQuality: FilterQuality.high,
       ),
     );

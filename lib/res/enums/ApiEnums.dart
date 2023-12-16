@@ -21,3 +21,13 @@ List<int> tournamentIds = [
   TournamentId.LIGUE_1.id,
   TournamentId.BUNDESLIGA.id
 ];
+
+enum Period {
+  ALL('ALL'),
+  ONE_ST('1ST'),
+  TWO_ND('2ND');
+
+  const Period(this.name);
+
+  final String name;
+}

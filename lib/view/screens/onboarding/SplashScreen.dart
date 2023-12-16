@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import '../../../theme/colors.dart';
 import '../../../utils/Routes/RoutesName.dart';
 
@@ -10,40 +11,92 @@ class SplashScreen extends StatefulWidget {
 }
 
 class SplashScreenState extends State<SplashScreen> {
+  bool _animationFinished = false;
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, RoutesName.introduce);
-      // Navigator.of(context).pushReplacement(
-      //     MaterialPageRoute(builder: (context) => const IntroductionScreen()));
+    Future.delayed(const Duration(milliseconds: 1750), () {
+      setState(() {
+        _animationFinished = true;
+        _initiateNavigation();
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: background,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child: Stack(
+          alignment: Alignment.center,
           children: <Widget>[
-            SizedBox(height: 20),
-            Text(
-              'HuitScore',
-              style: TextStyle(
-                fontSize: 48,
-                fontFamily: 'Inter_700',
-                color: onSurfaceBlack12,
-              ),
+            AnimatedSwitcher(
+              duration: const Duration(milliseconds: 400),
+              switchInCurve: Curves.easeOut,
+              child: _animationFinished
+                  ? _buildHuitScoreText()
+                  : _buildLottieAnimation(),
             ),
-            SizedBox(
-              height: 127.0,
-            ),
-            CircularProgressIndicator(),
           ],
         ),
       ),
     );
   }
+
+  Widget _buildLottieAnimation() {
+    return Center(
+      child: Lottie.asset(
+        'assets/splash.json',
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.fitWidth,
+        repeat: false,
+        animate: true,
+      ),
+    );
+  }
+
+  Widget _buildHuitScoreText() {
+    return const Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'HuitScore',
+          style: TextStyle(
+            fontSize: 52,
+            fontFamily: 'Inter_700',
+            color: onSurfaceBlack12,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _initiateNavigation() async {
+    await Future.delayed(const Duration(seconds: 2));
+    Navigator.pushReplacementNamed(context, RoutesName.introduce);
+  }
 }
+
+// child: Column(
+//   mainAxisAlignment: MainAxisAlignment.center,
+//   children: [
+//   ],
+// children: <Widget>[
+//   SizedBox(height: 20),
+//   Text(
+//     'HuitScore',
+//     style: TextStyle(
+//       fontSize: 48,
+//       fontFamily: 'Inter_700',
+//       color: onSurfaceBlack12,
+//     ),
+//   ),
+//   SizedBox(
+//     height: 127.0,
+//   ),
+// ],

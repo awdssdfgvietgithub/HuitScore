@@ -8,7 +8,8 @@ import '../data/network/NetworkApiService.dart';
 import '../res/AppUrl.dart';
 
 class ListTeamsOnStandingRepo {
-  final BaseApiServices _apiServices = NetworkApiService6();
+  //X_RapidAPI_Key5
+  final BaseApiServices _apiServices = NetworkApiService5();
 
   Future<List<TeamOnStandingModel>> fetchTeamOnStanding(
     int tournamentId,

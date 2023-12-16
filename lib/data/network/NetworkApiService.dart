@@ -272,3 +272,79 @@ class NetworkApiService7 extends BaseApiServices {
     }
   }
 }
+
+class NetworkApiService8 extends BaseApiServices {
+  @override
+  Future getApiResponse(String url) async {
+    dynamic responseJson;
+
+    var headers = {
+      'X-RapidAPI-Key': AppUrl.X_RapidAPI_Key8,
+      'X-RapidAPI-Host': AppUrl.X_RapidAPI_Host
+    };
+
+    try {
+      final response = await http
+          .get(Uri.parse(url), headers: headers);
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No internet conn');
+    }
+
+    return responseJson;
+  }
+
+  dynamic returnResponse(http.Response response) {
+    switch (response.statusCode) {
+      case 200:
+        dynamic responseJson = jsonDecode(response.body);
+        return responseJson;
+      case 400:
+        throw BadRequestException(response.body.toString());
+      case 404:
+        throw UnauthorisedException(response.body.toString());
+      default:
+        throw FetchDataException(
+            'Error while communicating with server, status code ${response.statusCode.toString()}');
+    }
+  }
+}
+
+class NetworkApiService9 extends BaseApiServices {
+  @override
+  Future getApiResponse(String url) async {
+    dynamic responseJson;
+
+    var headers = {
+      'X-RapidAPI-Key': AppUrl.X_RapidAPI_Key9,
+      'X-RapidAPI-Host': AppUrl.X_RapidAPI_Host
+    };
+
+    try {
+      final response = await http
+          .get(Uri.parse(url), headers: headers);
+
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No internet conn');
+    }
+
+    return responseJson;
+  }
+
+  dynamic returnResponse(http.Response response) {
+    switch (response.statusCode) {
+      case 200:
+        dynamic responseJson = jsonDecode(response.body);
+        return responseJson;
+      case 400:
+        throw BadRequestException(response.body.toString());
+      case 404:
+        throw UnauthorisedException(response.body.toString());
+      default:
+        throw FetchDataException(
+            'Error while communicating with server, status code ${response.statusCode.toString()}');
+    }
+  }
+}

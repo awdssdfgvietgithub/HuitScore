@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:ffi';
 
 import 'package:huit_score/data/network/BaseApiServices.dart';
 import 'package:huit_score/data/network/NetworkApiService.dart';
@@ -10,9 +9,8 @@ import 'package:huit_score/model/StatusMatchModel.dart';
 import 'package:huit_score/model/TournamentModel.dart';
 import 'package:huit_score/res/AppUrl.dart';
 
-import '../res/enums/ApiEnums.dart';
-
 class HomeRepo {
+  //X_RapidAPI_Key1 || X_RapidAPI_Key2
   final BaseApiServices _apiServices = NetworkApiService2();
 
   Future<List<MatchScheduleModel>> fetchMatchSchedules() async {
@@ -51,8 +49,9 @@ class HomeRepo {
           log("id away team: ${awayTeam.id}\n\tname: ${awayTeam.name}");
           int homeScore = event['homeScore']?['display'] ?? -1;
           int awayScore = event['awayScore']?['display'] ?? -1;
-          int matchTimestamp = event['statusTime']?['timestamp'] ?? -1;
+          int matchTimestamp = event['changes']?['changeTimestamp'] ?? -1;
           int startTimestamp = event['startTimestamp'] ?? -1;
+          int extra = event['time']?['extra'] ?? 780;
           String slug = event['slug'] ?? 'N/a';
 
           MatchScheduleModel matchSchedule = MatchScheduleModel(
@@ -67,6 +66,7 @@ class HomeRepo {
               awayScore: awayScore,
               matchTimestamp: matchTimestamp,
               startTimestamp: startTimestamp,
+              extra: extra,
               slug: slug);
           dataList.add(matchSchedule);
         }

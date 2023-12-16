@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:huit_score/data/local/mock/PromotionStatus.dart';
 import 'package:huit_score/res/components/ExplainColorStandingDialog.dart';
@@ -8,6 +5,7 @@ import 'package:huit_score/theme/colors.dart';
 import 'package:huit_score/view_model/ListLeagueEventsByRoundViewModel.dart';
 import 'package:huit_score/view_model/ListLeagueRoundsViewModel.dart';
 import 'package:huit_score/view_model/ListTeamsOnStandingViewModel.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../data/response/Status.dart';
@@ -210,10 +208,7 @@ class _MatchesAllScreen extends State<MatchesAllScreen>
                           fontSize: 14,
                         ),
                         indicator: const UnderlineTabIndicator(
-                          borderSide: BorderSide(
-                              width: 3,
-                              color:
-                                  primary),
+                          borderSide: BorderSide(width: 3, color: primary),
                         ),
                       ),
                     ),
@@ -286,7 +281,14 @@ class _MatchesAllScreen extends State<MatchesAllScreen>
                                                 }).toList(),
                                               );
                                             } else {
-                                              return const CircularProgressIndicator(); // Show loading indicator or error message
+                                              return const Text(
+                                                "Loading...",
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: 'Inter_700',
+                                                  color: onBackground,
+                                                ),
+                                              );
                                             }
                                           },
                                         ),
@@ -316,26 +318,34 @@ class _MatchesAllScreen extends State<MatchesAllScreen>
                                                           .data![index],
                                                   homeTeamImageUrl: _listImageUrlViewModel
                                                           .imageUrls
-                                                          .firstWhere((item) =>
-                                                              item.id ==
-                                                              listLeagueEventsByRoundViewModel
-                                                                  .matchSchedules
-                                                                  .data![index]
-                                                                  .homeTeam
-                                                                  ?.id
-                                                                  .toString())
+                                                          .firstWhere(
+                                                              (item) =>
+                                                                  item.id ==
+                                                                  listLeagueEventsByRoundViewModel
+                                                                      .matchSchedules
+                                                                      .data![
+                                                                          index]
+                                                                      .homeTeam
+                                                                      ?.id
+                                                                      .toString(),
+                                                              orElse: () =>
+                                                                  ImageUrlModel())
                                                           .url ??
                                                       '',
                                                   awayTeamImageUrl: _listImageUrlViewModel
                                                           .imageUrls
-                                                          .firstWhere((item) =>
-                                                              item.id ==
-                                                              listLeagueEventsByRoundViewModel
-                                                                  .matchSchedules
-                                                                  .data![index]
-                                                                  .awayTeam
-                                                                  ?.id
-                                                                  .toString())
+                                                          .firstWhere(
+                                                              (item) =>
+                                                                  item.id ==
+                                                                  listLeagueEventsByRoundViewModel
+                                                                      .matchSchedules
+                                                                      .data![
+                                                                          index]
+                                                                      .awayTeam
+                                                                      ?.id
+                                                                      .toString(),
+                                                              orElse: () =>
+                                                                  ImageUrlModel())
                                                           .url ??
                                                       '',
                                                 ),
@@ -497,9 +507,25 @@ class _MatchesAllScreen extends State<MatchesAllScreen>
                                       ),
                                     ),
                                   ));
+                            }
+                            if (listTeamsOnStandingViewModel
+                                    .teamsOnStanding.status ==
+                                Status.ERROR) {
+                              return Container(
+                                height: double.infinity,
+                                width: double.infinity,
+                                color: background,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                        'detailsMatchViewModel: ${listTeamsOnStandingViewModel.teamsOnStanding.message}'),
+                                  ],
+                                ),
+                              );
                             } else {
-                              return const Center(
-                                child: CircularProgressIndicator(),
+                              return Center(
+                                child: Lottie.asset('assets/page_loading.json',
+                                    height: 150, width: 150),
                               );
                             }
                           })
@@ -509,7 +535,10 @@ class _MatchesAllScreen extends State<MatchesAllScreen>
                   ],
                 ));
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: Lottie.asset('assets/page_loading.json',
+                  height: 150, width: 150),
+            );
           }
         }),
       ),
@@ -664,135 +693,133 @@ class RowContentStanding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          height: 36,
-          width: 4,
+    return Stack(children: [
+      Container(
+        height: 36,
+        width: 4,
         color: mockPromotionStatus
             .firstWhere((element) => element.id == promotionId,
                 orElse: () => PromotionStatusModel())
             .color, // background color
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              SizedBox(
-                width: 20,
-                child: Text(
-                  position.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: 'Inter_400',
-                    color: Color(0xFF34363D),
-                  ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            SizedBox(
+              width: 20,
+              child: Text(
+                position.toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Inter_400',
+                  color: Color(0xFF34363D),
                 ),
               ),
-              const SizedBox(width: 8),
-              Row(
-                children: [
-                  AppNetworkImage(url: teamLogo, size: 20),
-                  const SizedBox(width: 8),
-                  SizedBox(
-                    width: 94,
-                    child: Text(
-                      shortName,
-                      textAlign: TextAlign.start,
-                      style: const TextStyle(
-                        fontSize: 12.0,
-                        fontFamily: 'Inter_400',
-                        color: Color(0xFF34363D),
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+            ),
+            const SizedBox(width: 8),
+            Row(
+              children: [
+                AppNetworkImage(url: teamLogo, size: 20),
+                const SizedBox(width: 8),
+                SizedBox(
+                  width: 94,
+                  child: Text(
+                    shortName,
+                    textAlign: TextAlign.start,
+                    style: const TextStyle(
+                      fontSize: 12.0,
+                      fontFamily: 'Inter_400',
+                      color: Color(0xFF34363D),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 12),
-              SizedBox(
-                width: 20,
-                child: Text(
-                  matches.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: 'Inter_400',
-                    color: Color(0xFF34363D),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-              ),
-              const SizedBox(width: 4),
-              SizedBox(
-                width: 20,
-                child: Text(
-                  wins.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: 'Inter_400',
-                    color: Color(0xFF34363D),
-                  ),
+              ],
+            ),
+            const SizedBox(width: 12),
+            SizedBox(
+              width: 20,
+              child: Text(
+                matches.toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Inter_400',
+                  color: Color(0xFF34363D),
                 ),
               ),
-              const SizedBox(width: 4),
-              SizedBox(
-                width: 20,
-                child: Text(
-                  draws.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: 'Inter_400',
-                    color: Color(0xFF34363D),
-                  ),
+            ),
+            const SizedBox(width: 4),
+            SizedBox(
+              width: 20,
+              child: Text(
+                wins.toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Inter_400',
+                  color: Color(0xFF34363D),
                 ),
               ),
-              const SizedBox(width: 4),
-              SizedBox(
-                width: 20,
-                child: Text(
-                  losses.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: 'Inter_400',
-                    color: Color(0xFF34363D),
-                  ),
+            ),
+            const SizedBox(width: 4),
+            SizedBox(
+              width: 20,
+              child: Text(
+                draws.toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Inter_400',
+                  color: Color(0xFF34363D),
                 ),
               ),
-              const SizedBox(width: 4),
-              SizedBox(
-                width: 40,
-                child: Text(
-                  "$scoresFor:$scoresAgainst",
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: 'Inter_400',
-                    color: Color(0xFF34363D),
-                  ),
+            ),
+            const SizedBox(width: 4),
+            SizedBox(
+              width: 20,
+              child: Text(
+                losses.toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Inter_400',
+                  color: Color(0xFF34363D),
                 ),
               ),
-              const SizedBox(width: 4),
-              SizedBox(
-                width: 25,
-                child: Text(
-                  points.toString(),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 12.0,
-                    fontFamily: 'Inter_700',
-                    color: Color(0xFF34363D),
-                  ),
+            ),
+            const SizedBox(width: 4),
+            SizedBox(
+              width: 40,
+              child: Text(
+                "$scoresFor:$scoresAgainst",
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Inter_400',
+                  color: Color(0xFF34363D),
                 ),
               ),
-            ],
-          ),
+            ),
+            const SizedBox(width: 4),
+            SizedBox(
+              width: 25,
+              child: Text(
+                points.toString(),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 12.0,
+                  fontFamily: 'Inter_700',
+                  color: Color(0xFF34363D),
+                ),
+              ),
+            ),
+          ],
         ),
-      ]
-    );
+      ),
+    ]);
   }
 }
