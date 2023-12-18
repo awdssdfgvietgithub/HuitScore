@@ -167,7 +167,7 @@ class _MatchesAllScreen extends State<MatchesAllScreen>
                                           ?.first
                                           .tournament
                                           ?.category
-                                          ?.name ??
+                                          ?.categoryName ??
                                       'N/a',
                                   style: const TextStyle(
                                     fontSize: 14,

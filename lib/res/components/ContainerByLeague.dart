@@ -51,7 +51,7 @@ class ContainerByLeague extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        list[0].tournament?.category?.name ?? 'N/a',
+                        list[0].tournament?.category?.categoryName ?? 'N/a',
                         style: const TextStyle(
                           fontSize: 12,
                           color: onSurfaceBlack12,

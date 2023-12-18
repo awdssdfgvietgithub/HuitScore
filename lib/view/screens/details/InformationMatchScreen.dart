@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:huit_score/data/response/Status.dart';
 import 'package:huit_score/model/foot/ImageUrlModel.dart';
@@ -6,8 +8,10 @@ import 'package:huit_score/model/foot/PlayerModel.dart';
 import 'package:huit_score/model/foot/StatisticsItemsModel.dart';
 import 'package:huit_score/model/foot/StatusMatchModel.dart';
 import 'package:huit_score/res/components/NotFoundMatches.dart';
+import 'package:huit_score/res/extensions/NavigatorExtension.dart';
 import 'package:huit_score/res/extensions/PrimitiveDTExtension.dart';
 import 'package:huit_score/theme/colors.dart';
+import 'package:huit_score/view/screens/details/DetailsTeamScreen.dart';
 import 'package:huit_score/view_model/DetailsMatchViewModel.dart';
 import 'package:huit_score/view_model/LineupsMatchViewModel.dart';
 import 'package:huit_score/view_model/ListImageUrlViewModel.dart';
@@ -166,29 +170,26 @@ class TopSubHeaderMatchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String country =
-        detailsMatchViewModel.detailsMatch.data?.tournament?.category?.name ??
-            'N/a';
+    String country = detailsMatchViewModel
+            .detailsMatch.data?.tournament?.category?.categoryName ??
+        'N/a';
     String league =
         detailsMatchViewModel.detailsMatch.data?.tournament?.tournamentName ??
             'N/a';
     String stadium =
         detailsMatchViewModel.detailsMatch.data?.venue?.stadiumName ?? '';
     return Container(
+      width: double.infinity,
       color: surface,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Row(
-          children: [
-            Text(
-              '$country • $league • $stadium',
-              style: const TextStyle(
-                fontSize: 12,
-                color: onSurfaceBlack8,
-                fontFamily: 'Inter_400',
-              ),
-            ),
-          ],
+        child: Text(
+          '$country • $league • $stadium',
+          style: const TextStyle(
+            fontSize: 12,
+            color: onSurfaceBlack8,
+            fontFamily: 'Inter_400',
+          ),
         ),
       ),
     );
@@ -227,6 +228,8 @@ class LineupTab extends StatelessWidget {
                 orElse: () => ImageUrlModel())
             .url ??
         'N/a';
+    int homeId = detailsMatchViewModel.detailsMatch.data?.homeTeam?.id ?? -1;
+    int awayId = detailsMatchViewModel.detailsMatch.data?.awayTeam?.id ?? -1;
     List<PlayerModel> homePlayers =
         lineupsMatchViewModel.lineupsMatch.data?.homePlayers ?? [];
     List<PlayerModel> awayPlayers =
@@ -251,17 +254,31 @@ class LineupTab extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        AppNetworkImage(url: homeTeamImageUrl, size: 17),
+                        GestureDetector(
+                            onTap: () => {
+                                  context.pushReplacementWithSlideTransition(
+                                    DetailsTeamScreen(teamId: homeId),
+                                  )
+                                },
+                            child: AppNetworkImage(
+                                url: homeTeamImageUrl, size: 24)),
                         const Text(
                           'PLAYER',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 16,
                             fontFamily: 'Inter_700',
                             color: onSurfaceBlack8,
                           ),
                         ),
-                        AppNetworkImage(url: awayTeamImageUrl, size: 17),
+                        GestureDetector(
+                            onTap: () => {
+                                  context.pushReplacementWithSlideTransition(
+                                    DetailsTeamScreen(teamId: awayId),
+                                  )
+                                },
+                            child: AppNetworkImage(
+                                url: awayTeamImageUrl, size: 24)),
                       ],
                     ),
                     const SizedBox(
@@ -323,17 +340,31 @@ class LineupTab extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          AppNetworkImage(url: homeTeamImageUrl, size: 17),
+                          GestureDetector(
+                              onTap: () => {
+                                    context.pushReplacementWithSlideTransition(
+                                      DetailsTeamScreen(teamId: homeId),
+                                    )
+                                  },
+                              child: AppNetworkImage(
+                                  url: homeTeamImageUrl, size: 24)),
                           const Text(
                             'COACH',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 16,
                               fontFamily: 'Inter_700',
                               color: onSurfaceBlack8,
                             ),
                           ),
-                          AppNetworkImage(url: awayTeamImageUrl, size: 17),
+                          GestureDetector(
+                              onTap: () => {
+                                    context.pushReplacementWithSlideTransition(
+                                      DetailsTeamScreen(teamId: awayId),
+                                    )
+                                  },
+                              child: AppNetworkImage(
+                                  url: awayTeamImageUrl, size: 24)),
                         ],
                       ),
                       const SizedBox(
@@ -348,7 +379,7 @@ class LineupTab extends StatelessWidget {
                                 'N/a',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               fontFamily: 'Inter_400',
                               color: onSurfaceBlack12,
                             ),
@@ -359,7 +390,7 @@ class LineupTab extends StatelessWidget {
                                 'N/a',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
-                              fontSize: 12,
+                              fontSize: 14,
                               fontFamily: 'Inter_400',
                               color: onSurfaceBlack12,
                             ),
@@ -388,19 +419,23 @@ class LineupTab extends StatelessWidget {
                   "C",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 12.0,
+                    fontSize: 14.0,
                     fontFamily: 'Inter_700',
                     color: Colors.red,
                   ),
                 ),
               const SizedBox(width: 10),
-              Text(
-                player.shortName.toString(),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'Inter_400',
-                  color: onSurfaceBlack12,
+              Flexible(
+                child: Text(
+                  player.shortName.toString(),
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                    fontFamily: 'Inter_400',
+                    color: onSurfaceBlack12,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               const SizedBox(width: 10),
@@ -408,7 +443,7 @@ class LineupTab extends StatelessWidget {
                 player.shirtNumber.toString(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 14.0,
                   fontFamily: 'SpaceGrotesk_700',
                   color: onSurfaceBlack12,
                 ),
@@ -423,19 +458,23 @@ class LineupTab extends StatelessWidget {
                 player.shirtNumber.toString(),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 14.0,
                   fontFamily: 'SpaceGrotesk_700',
                   color: onSurfaceBlack12,
                 ),
               ),
               const SizedBox(width: 10),
-              Text(
-                player.shortName.toString(),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 12.0,
-                  fontFamily: 'Inter_400',
-                  color: onSurfaceBlack12,
+              Flexible(
+                child: Text(
+                  player.shortName.toString(),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                    fontFamily: 'Inter_400',
+                    color: onSurfaceBlack12,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               const SizedBox(width: 10),
@@ -444,7 +483,7 @@ class LineupTab extends StatelessWidget {
                   "C",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 12.0,
+                    fontSize: 14.0,
                     fontFamily: 'Inter_700',
                     color: Colors.red,
                   ),
@@ -523,6 +562,11 @@ class _StatisticsTabState extends State<StatisticsTab> {
             .url ??
         'N/a';
 
+    int homeId =
+        widget.detailsMatchViewModel.detailsMatch.data?.homeTeam?.id ?? -1;
+    int awayId =
+        widget.detailsMatchViewModel.detailsMatch.data?.awayTeam?.id ?? -1;
+
     return SingleChildScrollView(
       child: Padding(
         padding:
@@ -576,17 +620,31 @@ class _StatisticsTabState extends State<StatisticsTab> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        AppNetworkImage(url: homeTeamImageUrl, size: 17),
+                        GestureDetector(
+                            onTap: () => {
+                                  context.pushReplacementWithSlideTransition(
+                                    DetailsTeamScreen(teamId: homeId),
+                                  )
+                                },
+                            child: AppNetworkImage(
+                                url: homeTeamImageUrl, size: 24)),
                         const Text(
                           'TEAM STATS',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 16,
                             fontFamily: 'Inter_700',
                             color: onSurfaceBlack8,
                           ),
                         ),
-                        AppNetworkImage(url: awayTeamImageUrl, size: 17),
+                        GestureDetector(
+                            onTap: () => {
+                                  context.pushReplacementWithSlideTransition(
+                                    DetailsTeamScreen(teamId: awayId),
+                                  )
+                                },
+                            child: AppNetworkImage(
+                                url: awayTeamImageUrl, size: 24)),
                       ],
                     ),
                     const SizedBox(
@@ -751,7 +809,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 statisticsItem.home ?? 'N/a',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 13.0,
                   fontFamily: 'SpaceGrotesk_400',
                   color: onSurfaceBlack12,
                 ),
@@ -766,7 +824,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 statisticsItem.away ?? 'N/a',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
-                  fontSize: 12.0,
+                  fontSize: 13.0,
                   fontFamily: 'SpaceGrotesk_400',
                   color: onSurfaceBlack12,
                 ),
@@ -810,6 +868,8 @@ class HeaderOfInformationMatchScreen extends StatelessWidget {
                 orElse: () => ImageUrlModel())
             .url ??
         'N/a';
+    int homeId = detailsMatchViewModel.detailsMatch.data?.homeTeam?.id ?? -1;
+    int awayId = detailsMatchViewModel.detailsMatch.data?.awayTeam?.id ?? -1;
     String homeShortName =
         detailsMatchViewModel.detailsMatch.data?.homeTeam?.shortName ?? 'N/a';
     String awayShortName =
@@ -845,6 +905,11 @@ class HeaderOfInformationMatchScreen extends StatelessWidget {
                 shortName: homeShortName,
                 turnName: 'Home',
                 formation: homeFormation,
+                voidCallback: () {
+                  context.pushReplacementWithSlideTransition(
+                    DetailsTeamScreen(teamId: homeId),
+                  );
+                },
               ),
               StatusMatch(
                 homeScore: homeScore,
@@ -859,6 +924,11 @@ class HeaderOfInformationMatchScreen extends StatelessWidget {
                 shortName: awayShortName,
                 turnName: 'Away',
                 formation: awayFormation,
+                voidCallback: () {
+                  context.pushReplacementWithSlideTransition(
+                    DetailsTeamScreen(teamId: awayId),
+                  );
+                },
               ),
             ],
           ),
@@ -972,13 +1042,15 @@ class TeamLogoAndName extends StatelessWidget {
   final String shortName;
   final String turnName;
   final String formation;
+  final VoidCallback voidCallback;
 
   const TeamLogoAndName(
       {super.key,
       required this.teamImageUrl,
       required this.shortName,
       required this.turnName,
-      required this.formation});
+      required this.formation,
+      required this.voidCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -987,18 +1059,25 @@ class TeamLogoAndName extends StatelessWidget {
       color: surface,
       child: Column(
         children: [
-          AppNetworkImage(url: teamImageUrl, size: 52),
-          const SizedBox(height: 12),
-          Text(
-            shortName,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 14,
-              fontFamily: 'Inter_500',
-              color: onSurfaceBlack12,
+          GestureDetector(
+            onTap: voidCallback,
+            child: Column(
+              children: [
+                AppNetworkImage(url: teamImageUrl, size: 52),
+                const SizedBox(height: 12),
+                Text(
+                  shortName,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Inter_500',
+                    color: onSurfaceBlack12,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.fade,
+                ),
+              ],
             ),
-            maxLines: 1,
-            overflow: TextOverflow.fade,
           ),
           const SizedBox(height: 4),
           Text(

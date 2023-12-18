@@ -69,7 +69,7 @@ class AppFootApiUrl {
   //https://footapi7.p.rapidapi.com/api/team/2672/players
   static var teamPlayers = '$baseUrl/api/team';
 
-  //get statistics match X_RapidAPI_Key11
+  //get team details X_RapidAPI_Key11
   //https://footapi7.p.rapidapi.com/api/team/2672
   static var teamDetails = '$baseUrl/api/team';
 

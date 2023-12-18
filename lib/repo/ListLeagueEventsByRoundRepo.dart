@@ -27,9 +27,9 @@ class ListLeagueEventsByRoundRepo {
             tournamentId: event['tournament']?['uniqueTournament']?['id'] ?? -1,
             tournamentName: event['tournament']?['name'] ?? 'N/a',
             category: CategoryModel(
-                id: event['tournament']?['category']?['id'] ?? -1,
-                name: event['tournament']?['category']?['name'] ?? 'N/a'));
-        log("${tournament.tournamentName} ${tournament.tournamentId}\n${tournament.category?.name} ${tournament.category?.id}");
+                categoryId: event['tournament']?['category']?['id'] ?? -1,
+                categoryName: event['tournament']?['category']?['name'] ?? 'N/a'));
+        log("${tournament.tournamentName} ${tournament.tournamentId}\n${tournament.category?.categoryName} ${tournament.category?.categoryId}");
         int roundNumber = event['roundInfo']?['round'] ?? -1;
         StatusMatchModel statusMatch = StatusMatchModel(
             code: event['status']?['code'] ?? -1,

@@ -1,6 +1,6 @@
 class CategoryModel {
-  int? id;
-  String? name;
+  int? categoryId;
+  String? categoryName;
 
-  CategoryModel({this.id, this.name});
+  CategoryModel({this.categoryId, this.categoryName});
 }

@@ -44,10 +44,10 @@ class DetailsMatchRepo {
                 ?['name'] ??
             'N/a',
         category: CategoryModel(
-          id: response['event']?['tournament']?['uniqueTournament']?['category']
+          categoryId: response['event']?['tournament']?['uniqueTournament']?['category']
                   ?['id'] ??
               -1,
-          name: response['event']?['tournament']?['uniqueTournament']
+          categoryName: response['event']?['tournament']?['uniqueTournament']
                   ?['category']?['name'] ??
               'N/a',
         ),

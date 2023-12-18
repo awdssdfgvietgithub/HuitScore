@@ -27,8 +27,8 @@ class HomeRepo {
                   event['tournament']?['uniqueTournament']?['id'] ?? -1,
               tournamentName: event['tournament']?['name'] ?? 'N/a',
               category: CategoryModel(
-                  id: event['tournament']?['category']?['id'] ?? -1,
-                  name: event['tournament']?['category']?['name'] ?? 'N/a'));
+                  categoryId: event['tournament']?['category']?['id'] ?? -1,
+                  categoryName: event['tournament']?['category']?['name'] ?? 'N/a'));
           int roundNumber = event['roundInfo']?['round'] ?? -1;
           StatusMatchModel statusMatch = StatusMatchModel(
               code: event['status']?['code'] ?? -1,

@@ -22,6 +22,12 @@ extension IntParsing on int {
     String formattedDateTime = DateFormat('HH:mm').format(dateTime);
     return formattedDateTime;
   }
+
+  String parseToDateDMY() {
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(this * 1000, isUtc: true);
+    String formattedDate = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
+    return formattedDate;
+  }
 }
 
 extension DateParsing on String {
