@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:huit_score/model/MatchScheduleModel.dart';
+import 'package:huit_score/model/foot/MatchScheduleModel.dart';
 import 'package:huit_score/res/enums/AppEnums.dart';
 import 'package:huit_score/res/extensions/NavigatorExtension.dart';
 import 'package:huit_score/res/extensions/PrimitiveDTExtension.dart';

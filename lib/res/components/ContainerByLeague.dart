@@ -1,13 +1,10 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:huit_score/view_model/HomeViewModel.dart';
+import 'package:huit_score/model/foot/MatchScheduleModel.dart';
 import 'package:huit_score/view_model/ListImageUrlViewModel.dart';
-import 'package:shimmer/shimmer.dart';
 
 import '../../data/local/mock/ImageResModel.dart';
-import '../../model/MatchScheduleModel.dart';
 import '../../theme/colors.dart';
 import 'MatchItem.dart';
 

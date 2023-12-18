@@ -1,10 +1,10 @@
 import 'dart:developer';
 
-import 'package:huit_score/model/LeagueRoundModel.dart';
+import 'package:huit_score/model/foot/LeagueRoundModel.dart';
+import 'package:huit_score/res/AppFootApiUrl.dart';
 
 import '../data/network/BaseApiServices.dart';
 import '../data/network/NetworkApiService.dart';
-import '../res/AppUrl.dart';
 
 class ListLeagueRoundsRepo {
   final BaseApiServices _apiServices = NetworkApiService4();
@@ -16,7 +16,7 @@ class ListLeagueRoundsRepo {
     try {
       LeagueRoundModel leagueRound;
       dynamic response = await _apiServices.getApiResponse(
-          '${AppUrl.leagueRounds}/$tournamentId/season/$seasonId/rounds');
+          '${AppFootApiUrl.leagueRounds}/$tournamentId/season/$seasonId/rounds');
 
       int currentRound = response['currentRound']?['round'] ?? -1;
       log("currentRound: $currentRound");

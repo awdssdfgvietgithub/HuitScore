@@ -1,12 +1,12 @@
 import 'dart:developer';
 
-import 'package:huit_score/model/PeriodModel.dart';
-import 'package:huit_score/model/StatisticsModel.dart';
+import 'package:huit_score/model/foot/PeriodModel.dart';
+import 'package:huit_score/model/foot/StatisticsItemsModel.dart';
+import 'package:huit_score/model/foot/StatisticsModel.dart';
+import 'package:huit_score/res/AppFootApiUrl.dart';
 
 import '../data/network/BaseApiServices.dart';
 import '../data/network/NetworkApiService.dart';
-import '../model/StatisticsItemsModel.dart';
-import '../res/AppUrl.dart';
 
 class ListStatisticsMatchRepo {
   //X_RapidAPI_Key8
@@ -19,7 +19,7 @@ class ListStatisticsMatchRepo {
       List<StatisticsModel> statisticsList = [];
 
       dynamic response = await _apiServices
-          .getApiResponse('${AppUrl.statisticsMatch}/$matchId/statistics');
+          .getApiResponse('${AppFootApiUrl.statisticsMatch}/$matchId/statistics');
 
       log("matchId: $matchId");
       for (Map statistic in response['statistics']) {

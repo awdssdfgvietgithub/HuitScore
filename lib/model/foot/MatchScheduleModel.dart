@@ -1,10 +1,8 @@
-import 'dart:ffi';
 
-import 'package:huit_score/model/TeamModel.dart';
 
-import 'ShortTeamModel.dart';
-import 'StatusMatchModel.dart';
-import 'TournamentModel.dart';
+import 'package:huit_score/model/foot/ShortTeamModel.dart';
+import 'package:huit_score/model/foot/StatusMatchModel.dart';
+import 'package:huit_score/model/foot/TournamentModel.dart';
 
 class MatchScheduleModel {
   int? id;

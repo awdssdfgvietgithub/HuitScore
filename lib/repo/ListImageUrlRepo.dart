@@ -1,5 +1,5 @@
 import 'package:huit_score/data/local/LocalJsonService.dart';
-import 'package:huit_score/model/ImageUrlModel.dart';
+import 'package:huit_score/model/foot/ImageUrlModel.dart';
 
 class ListImageUrlRepo {
   final LocalJsonService _localJsonService = LocalJsonService();

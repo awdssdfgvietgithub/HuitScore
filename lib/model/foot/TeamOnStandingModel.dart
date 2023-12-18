@@ -1,4 +1,5 @@
-import 'ShortTeamModel.dart';
+
+import 'package:huit_score/model/foot/ShortTeamModel.dart';
 
 class TeamOnStandingModel {
   int? position;

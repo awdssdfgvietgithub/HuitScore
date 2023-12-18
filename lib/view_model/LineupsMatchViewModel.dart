@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:huit_score/model/LineupsModel.dart';
+import 'package:huit_score/model/foot/LineupsModel.dart';
 import 'package:huit_score/repo/LineupsMatchRepo.dart';
 
 import '../data/response/ApiResponse.dart';

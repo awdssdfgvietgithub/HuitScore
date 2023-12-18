@@ -23,3 +23,24 @@ extension IntParsing on int {
     return formattedDateTime;
   }
 }
+
+extension DateParsing on String {
+  String parseDateTime() {
+    DateTime dateTime = DateTime.parse(this);
+    String formattedDateTime = '${dateTime.day.toString().padLeft(2, '0')}-${dateTime.month.toString().padLeft(2, '0')}-${dateTime.year} ${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}';
+    return formattedDateTime;
+  }
+}
+
+extension HtmlTagRemoval on String {
+  String removeHtmlTagsAndNbsp() {
+    // Loại bỏ thẻ HTML
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+    String withoutHtmlTags = replaceAll(exp, '');
+
+    // Loại bỏ ký tự &nbsp;
+    String withoutNbsp = withoutHtmlTags.replaceAll('\u00A0', ' ');
+
+    return withoutNbsp;
+  }
+}

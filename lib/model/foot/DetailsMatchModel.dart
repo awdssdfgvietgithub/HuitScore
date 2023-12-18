@@ -1,6 +1,7 @@
-import 'ShortTeamModel.dart';
-import 'StatusMatchModel.dart';
-import 'TournamentModel.dart';
+import 'package:huit_score/model/foot/ShortTeamModel.dart';
+import 'package:huit_score/model/foot/StatusMatchModel.dart';
+import 'package:huit_score/model/foot/TournamentModel.dart';
+
 import 'VenueModel.dart';
 
 class DetailsMatchModel {

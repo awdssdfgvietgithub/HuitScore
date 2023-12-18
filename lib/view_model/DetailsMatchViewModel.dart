@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:huit_score/model/DetailsMatchModel.dart';
+import 'package:huit_score/model/foot/DetailsMatchModel.dart';
 import 'package:huit_score/repo/DetailsMatchRepo.dart';
 
 import '../data/response/ApiResponse.dart';

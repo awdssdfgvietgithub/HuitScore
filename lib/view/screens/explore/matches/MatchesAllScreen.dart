@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:huit_score/data/local/mock/PromotionStatus.dart';
+import 'package:huit_score/model/foot/ImageUrlModel.dart';
 import 'package:huit_score/res/components/ExplainColorStandingDialog.dart';
 import 'package:huit_score/theme/colors.dart';
 import 'package:huit_score/view_model/ListLeagueEventsByRoundViewModel.dart';
@@ -10,7 +11,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../data/response/Status.dart';
 import '../../../../data/local/mock/ImageResModel.dart';
-import '../../../../model/ImageUrlModel.dart';
 import '../../../../res/components/MatchItem.dart';
 import '../../../../res/components/NetworkImage.dart';
 import '../../../../view_model/ListImageUrlViewModel.dart';

@@ -1,5 +1,7 @@
-import 'PlayerColorModel.dart';
-import 'PlayerModel.dart';
+
+
+import 'package:huit_score/model/foot/PlayerColorModel.dart';
+import 'package:huit_score/model/foot/PlayerModel.dart';
 
 class LineupsModel {
   List<PlayerModel>? homePlayers;

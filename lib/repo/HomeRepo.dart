@@ -2,12 +2,12 @@ import 'dart:developer';
 
 import 'package:huit_score/data/network/BaseApiServices.dart';
 import 'package:huit_score/data/network/NetworkApiService.dart';
-import 'package:huit_score/model/CategoryModel.dart';
-import 'package:huit_score/model/MatchScheduleModel.dart';
-import 'package:huit_score/model/ShortTeamModel.dart';
-import 'package:huit_score/model/StatusMatchModel.dart';
-import 'package:huit_score/model/TournamentModel.dart';
-import 'package:huit_score/res/AppUrl.dart';
+import 'package:huit_score/model/foot/CategoryModel.dart';
+import 'package:huit_score/model/foot/MatchScheduleModel.dart';
+import 'package:huit_score/model/foot/ShortTeamModel.dart';
+import 'package:huit_score/model/foot/StatusMatchModel.dart';
+import 'package:huit_score/model/foot/TournamentModel.dart';
+import 'package:huit_score/res/AppFootApiUrl.dart';
 
 class HomeRepo {
   //X_RapidAPI_Key1 || X_RapidAPI_Key2
@@ -17,12 +17,11 @@ class HomeRepo {
     try {
       List<MatchScheduleModel> dataList = [];
       dynamic response =
-          await _apiServices.getApiResponse(AppUrl.matchSchedulesUrl);
+          await _apiServices.getApiResponse(AppFootApiUrl.matchSchedulesUrl);
       for (Map event in response['events']) {
         // if (tournamentIds
         //     .contains(event['tournament']?['uniqueTournament']?['id'] ?? -1)) {
           int id = event['id'] ?? -1;
-          log("id match: ${id}");
           TournamentModel tournament = TournamentModel(
               tournamentId:
                   event['tournament']?['uniqueTournament']?['id'] ?? -1,
@@ -30,7 +29,6 @@ class HomeRepo {
               category: CategoryModel(
                   id: event['tournament']?['category']?['id'] ?? -1,
                   name: event['tournament']?['category']?['name'] ?? 'N/a'));
-          log("${tournament.tournamentName} ${tournament.tournamentId}\n${tournament.category?.name} ${tournament.category?.id}");
           int roundNumber = event['roundInfo']?['round'] ?? -1;
           StatusMatchModel statusMatch = StatusMatchModel(
               code: event['status']?['code'] ?? -1,
@@ -41,12 +39,10 @@ class HomeRepo {
               id: event['homeTeam']?['id'] ?? -1,
               name: event['homeTeam']?['name'] ?? 'N/a',
               shortName: event['homeTeam']?['shortName'] ?? 'N/a');
-          log("id home team: ${homeTeam.id}\n\tname: ${homeTeam.name}");
           ShortTeamModel awayTeam = ShortTeamModel(
               id: event['awayTeam']?['id'] ?? -1,
               name: event['awayTeam']?['name'] ?? 'N/a',
               shortName: event['awayTeam']?['shortName'] ?? 'N/a');
-          log("id away team: ${awayTeam.id}\n\tname: ${awayTeam.name}");
           int homeScore = event['homeScore']?['display'] ?? -1;
           int awayScore = event['awayScore']?['display'] ?? -1;
           int matchTimestamp = event['changes']?['changeTimestamp'] ?? -1;

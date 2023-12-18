@@ -1,13 +1,14 @@
-import 'package:huit_score/model/CategoryModel.dart';
-import 'package:huit_score/model/DetailsMatchModel.dart';
-import 'package:huit_score/model/TournamentModel.dart';
-import 'package:huit_score/model/VenueModel.dart';
+import 'package:huit_score/model/foot/CategoryModel.dart';
+import 'package:huit_score/model/foot/DetailsMatchModel.dart';
+import 'package:huit_score/model/foot/ShortTeamModel.dart';
+import 'package:huit_score/model/foot/StatusMatchModel.dart';
+import 'package:huit_score/model/foot/TournamentModel.dart';
+import 'package:huit_score/model/foot/VenueModel.dart';
+import 'package:huit_score/res/AppFootApiUrl.dart';
 
 import '../data/network/BaseApiServices.dart';
 import '../data/network/NetworkApiService.dart';
-import '../model/ShortTeamModel.dart';
-import '../model/StatusMatchModel.dart';
-import '../res/AppUrl.dart';
+
 
 class DetailsMatchRepo {
   //X_RapidAPI_Key6
@@ -20,7 +21,7 @@ class DetailsMatchRepo {
       DetailsMatchModel detailsMatchModel;
 
       dynamic response =
-          await _apiServices.getApiResponse('${AppUrl.detailsMatch}/$matchId');
+          await _apiServices.getApiResponse('${AppFootApiUrl.detailsMatch}/$matchId');
 
       ShortTeamModel homeTeam = ShortTeamModel(
           id: response['event']?['homeTeam']?['id'] ?? -1,

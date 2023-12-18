@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:huit_score/model/foot/MatchScheduleModel.dart';
 import 'package:huit_score/res/extensions/NavigatorExtension.dart';
 
-import '../../model/MatchScheduleModel.dart';
 import '../../theme/colors.dart';
 import '../../view/screens/details/InformationMatchScreen.dart';
 import 'NetworkImage.dart';
@@ -33,7 +33,6 @@ class LiveMatchItem extends StatelessWidget {
         .toString();
     return GestureDetector(
       onTap: () => {
-        log("Co nhan"),
         context.pushReplacementWithSlideTransition(
           InformationMatchScreen(matchId: model.id ?? -1),
         )

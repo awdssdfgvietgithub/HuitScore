@@ -1,9 +1,8 @@
-import 'dart:math';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:huit_score/model/ImageUrlModel.dart';
-import 'package:huit_score/model/MatchScheduleModel.dart';
+import 'package:huit_score/model/foot/ImageUrlModel.dart';
+import 'package:huit_score/model/foot/MatchScheduleModel.dart';
 import 'package:huit_score/res/components/ContainerByLeague.dart';
 import 'package:huit_score/res/components/LiveMatchItem.dart';
 import 'package:huit_score/view_model/ListImageUrlViewModel.dart';
@@ -61,7 +60,7 @@ class _HomeScreen extends State<HomeScreen> {
               if (result == ConnectivityResult.wifi ||
                   result == ConnectivityResult.mobile) {
                 if (!_apiCallMade) {
-                  _homeViewModel.fetchMoviesListApi();
+                  _homeViewModel.fetchMatchesListApi();
                   _apiCallMade = true;
                 }
                 return connected();

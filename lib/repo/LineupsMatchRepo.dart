@@ -1,10 +1,10 @@
-import 'package:huit_score/model/LineupsModel.dart';
+import 'package:huit_score/model/foot/LineupsModel.dart';
+import 'package:huit_score/res/AppFootApiUrl.dart';
 
 import '../data/network/BaseApiServices.dart';
 import '../data/network/NetworkApiService.dart';
-import '../model/PlayerColorModel.dart';
-import '../model/PlayerModel.dart';
-import '../res/AppUrl.dart';
+import '../model/foot/PlayerColorModel.dart';
+import '../model/foot/PlayerModel.dart';
 
 class LineupsMatchRepo {
   //X_RapidAPI_Key7
@@ -15,7 +15,7 @@ class LineupsMatchRepo {
       LineupsModel lineups;
 
       dynamic response = await _apiServices
-          .getApiResponse('${AppUrl.lineupsMatch}/$matchId/lineups');
+          .getApiResponse('${AppFootApiUrl.lineupsMatch}/$matchId/lineups');
 
       List<PlayerModel> homePlayers = [];
       for (Map player in response['home']['players']) {

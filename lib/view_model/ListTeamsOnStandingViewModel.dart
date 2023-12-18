@@ -1,7 +1,6 @@
-import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:huit_score/model/TeamOnStandingModel.dart';
+import 'package:huit_score/model/foot/TeamOnStandingModel.dart';
 import 'package:huit_score/repo/ListTeamsOnStandingRepo.dart';
 
 import '../data/response/ApiResponse.dart';

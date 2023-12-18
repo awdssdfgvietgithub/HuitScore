@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:huit_score/data/response/Status.dart';
-import 'package:huit_score/model/ImageUrlModel.dart';
-import 'package:huit_score/model/PeriodModel.dart';
-import 'package:huit_score/model/PlayerModel.dart';
-import 'package:huit_score/model/StatisticsItemsModel.dart';
-import 'package:huit_score/model/StatusMatchModel.dart';
+import 'package:huit_score/model/foot/ImageUrlModel.dart';
+import 'package:huit_score/model/foot/PeriodModel.dart';
+import 'package:huit_score/model/foot/PlayerModel.dart';
+import 'package:huit_score/model/foot/StatisticsItemsModel.dart';
+import 'package:huit_score/model/foot/StatusMatchModel.dart';
 import 'package:huit_score/res/components/NotFoundMatches.dart';
 import 'package:huit_score/res/extensions/PrimitiveDTExtension.dart';
 import 'package:huit_score/theme/colors.dart';
@@ -471,7 +471,7 @@ class StatisticsTab extends StatefulWidget {
   final ListStatisticsMatchViewModel listStatisticsMatchViewModel;
   final ListImageUrlViewModel listImageUrlViewModel;
 
-  StatisticsTab({
+  const StatisticsTab({
     Key? key,
     required this.listStatisticsMatchViewModel,
     required this.listImageUrlViewModel,
@@ -536,7 +536,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 spacing: 12,
                 children: <Widget>[
                   if (allGroupsList.isNotEmpty) ...[
-                    _buildChoiceChip(0, 'ALL', () {
+                    _buildChoiceChip(0, 'Match', () {
                       setState(() {
                         _selectedIndex = 0;
                         selectedList = allGroupsList;
@@ -544,7 +544,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                     }),
                   ],
                   if (oneSTGroupsList.isNotEmpty) ...[
-                    _buildChoiceChip(1, 'First half', () {
+                    _buildChoiceChip(1, '1st Half', () {
                       setState(() {
                         _selectedIndex = 1;
                         selectedList = oneSTGroupsList;
@@ -552,7 +552,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                     }),
                   ],
                   if (twoNDGroupsList.isNotEmpty) ...[
-                    _buildChoiceChip(2, 'Second half', () {
+                    _buildChoiceChip(2, '2nd Half', () {
                       setState(() {
                         _selectedIndex = 2;
                         selectedList = twoNDGroupsList;
@@ -562,7 +562,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
                 ],
               ),
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Container(
               decoration: const BoxDecoration(
                 color: surface,
@@ -728,7 +728,7 @@ class _StatisticsTabState extends State<StatisticsTab> {
       ),
       onSelected: (selected) {
         if (selected) {
-          onChipSelected(); // Move the call to onChipSelected inside the if condition
+          onChipSelected();
         }
       },
       backgroundColor: background,

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:huit_score/model/LeagueRoundModel.dart';
+import 'package:huit_score/model/foot/LeagueRoundModel.dart';
 import 'package:huit_score/repo/ListLeagueRoundsRepo.dart';
 
 import '../data/response/ApiResponse.dart';

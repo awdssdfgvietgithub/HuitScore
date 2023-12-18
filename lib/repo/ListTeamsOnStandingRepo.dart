@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:huit_score/model/ShortTeamModel.dart';
-import 'package:huit_score/model/TeamOnStandingModel.dart';
+import 'package:huit_score/model/foot/ShortTeamModel.dart';
+import 'package:huit_score/model/foot/TeamOnStandingModel.dart';
+import 'package:huit_score/res/AppFootApiUrl.dart';
 
 import '../data/network/BaseApiServices.dart';
 import '../data/network/NetworkApiService.dart';
-import '../res/AppUrl.dart';
 
 class ListTeamsOnStandingRepo {
   //X_RapidAPI_Key5
@@ -19,7 +19,7 @@ class ListTeamsOnStandingRepo {
       List<TeamOnStandingModel> listTeamOnStanding = [];
 
       dynamic response = await _apiServices.getApiResponse(
-          '${AppUrl.leagueTotalStandings}/$tournamentId/season/$seasonId/standings/total');
+          '${AppFootApiUrl.leagueTotalStandings}/$tournamentId/season/$seasonId/standings/total');
 
       for (Map standing in response['standings']) {
         for (Map row in standing['rows']) {

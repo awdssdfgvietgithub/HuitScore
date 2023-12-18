@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-class AppUrl {
+class AppFootApiUrl {
   static const String X_RapidAPI_Key1 =
       '9262372523mshf1a0506aee46c7fp1568b3jsnbdcd9b47a46b';
 
@@ -28,6 +28,12 @@ class AppUrl {
   static const String X_RapidAPI_Key9 =
       '3bf423085cmshea459e44d9f4af6p10a3aajsnd8cda79c9b4e';
 
+  static const String X_RapidAPI_Key10 =
+      '687572078fmshacec1c13cf3337ep1455c5jsn98a6e94aad14';
+
+  static const String X_RapidAPI_Key11 =
+      '608f770307mshcabba2645ea8426p1882edjsncfb89072083f';
+
   static var baseUrl = 'https://footapi7.p.rapidapi.com';
 
   static const String X_RapidAPI_Host = 'footapi7.p.rapidapi.com';
@@ -47,17 +53,25 @@ class AppUrl {
   //https://footapi7.p.rapidapi.com/api/tournament/7/season/36886/standings/total
   static var leagueTotalStandings = '$baseUrl/api/tournament';
 
-  //get details match X_RapidAPI_Key6 || X_RapidAPI_Key10
+  //get details match X_RapidAPI_Key6
   //https://footapi7.p.rapidapi.com/api/match/mã trận đấu
   static var detailsMatch = '$baseUrl/api/match';
 
-  //get lineups match X_RapidAPI_Key7 || X_RapidAPI_Key11
+  //get lineups match X_RapidAPI_Key7
   //https://footapi7.p.rapidapi.com/api/match/mã trận đấu/lineups
   static var lineupsMatch = '$baseUrl/api/match';
 
-  //get statistics match X_RapidAPI_Key8 || X_RapidAPI_Key12
+  //get statistics match X_RapidAPI_Key8
   //https://footapi7.p.rapidapi.com/api/match/mã trận đấu/statistics
   static var statisticsMatch = '$baseUrl/api/match';
+
+  //get team players X_RapidAPI_Key10
+  //https://footapi7.p.rapidapi.com/api/team/2672/players
+  static var teamPlayers = '$baseUrl/api/team';
+
+  //get statistics match X_RapidAPI_Key11
+  //https://footapi7.p.rapidapi.com/api/team/2672
+  static var teamDetails = '$baseUrl/api/team';
 
   //=======================================LATER=========================================//
   //get all season in league

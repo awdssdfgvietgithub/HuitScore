@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:huit_score/model/foot/MatchScheduleModel.dart';
 import 'package:huit_score/repo/ListLeagueEventsByRoundRepo.dart';
 
 import '../data/response/ApiResponse.dart';
-import '../model/MatchScheduleModel.dart';
 
 class ListLeagueEventsByRoundViewModel with ChangeNotifier {
   final _myRepo = ListLeagueEventsByRoundRepo();

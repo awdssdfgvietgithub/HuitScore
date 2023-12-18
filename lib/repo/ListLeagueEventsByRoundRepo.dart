@@ -1,13 +1,14 @@
 import 'dart:developer';
 
+import 'package:huit_score/model/foot/MatchScheduleModel.dart';
+import 'package:huit_score/model/foot/ShortTeamModel.dart';
+import 'package:huit_score/model/foot/StatusMatchModel.dart';
+import 'package:huit_score/model/foot/TournamentModel.dart';
+import 'package:huit_score/res/AppFootApiUrl.dart';
+
 import '../data/network/BaseApiServices.dart';
 import '../data/network/NetworkApiService.dart';
-import '../model/CategoryModel.dart';
-import '../model/MatchScheduleModel.dart';
-import '../model/ShortTeamModel.dart';
-import '../model/StatusMatchModel.dart';
-import '../model/TournamentModel.dart';
-import '../res/AppUrl.dart';
+import '../model/foot/CategoryModel.dart';
 
 class ListLeagueEventsByRoundRepo {
   //X_RapidAPI_Key3 || X_RapidAPI_Key4
@@ -18,7 +19,7 @@ class ListLeagueEventsByRoundRepo {
     try {
       List<MatchScheduleModel> dataList = [];
       dynamic response = await _apiServices.getApiResponse(
-          '${AppUrl.leagueEventsByRound}/$tournamentId/season/$seasonId/matches/round/$round');
+          '${AppFootApiUrl.leagueEventsByRound}/$tournamentId/season/$seasonId/matches/round/$round');
       for (Map event in response['events']) {
         int id = event['id'] ?? -1;
         log("id match: $id");

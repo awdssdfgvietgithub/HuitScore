@@ -1,4 +1,5 @@
-import 'PeriodModel.dart';
+
+import 'package:huit_score/model/foot/PeriodModel.dart';
 
 class StatisticsModel {
   String? periodName = 'N/a';

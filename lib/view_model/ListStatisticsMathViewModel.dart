@@ -1,12 +1,11 @@
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
-import 'package:huit_score/model/StatisticsModel.dart';
+import 'package:huit_score/model/foot/PeriodModel.dart';
+import 'package:huit_score/model/foot/StatisticsModel.dart';
 import 'package:huit_score/repo/ListStatisticsMathRepo.dart';
 import 'package:huit_score/res/enums/ApiEnums.dart';
 
 import '../data/response/ApiResponse.dart';
-import '../model/PeriodModel.dart';
 
 class ListStatisticsMatchViewModel with ChangeNotifier {
   final _myRepo = ListStatisticsMatchRepo();

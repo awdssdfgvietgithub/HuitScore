@@ -2,11 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:huit_score/data/response/ApiResponse.dart';
-import 'package:huit_score/model/ImageUrlModel.dart';
+import 'package:huit_score/model/foot/MatchScheduleModel.dart';
 import 'package:huit_score/repo/HomeRepo.dart';
 import 'package:huit_score/res/enums/ApiEnums.dart';
 
-import '../model/MatchScheduleModel.dart';
 
 class HomeViewModel with ChangeNotifier {
   final _myRepo = HomeRepo();
@@ -22,11 +21,12 @@ class HomeViewModel with ChangeNotifier {
 
   setMatchSchedules(ApiResponse<MatchScheduleModel> response) {
     matchSchedules = response;
+    log("laligaMatches ${matchSchedules.data?.length ?? 0}");
     filterLists();
     notifyListeners();
   }
 
-  Future<void> fetchMoviesListApi() async {
+  Future<void> fetchMatchesListApi() async {
     setMatchSchedules(ApiResponse.loading());
 
     _myRepo.fetchMatchSchedules().then((value) {
@@ -81,6 +81,6 @@ class HomeViewModel with ChangeNotifier {
   }
 
   Future<void> refresh() async {
-    await fetchMoviesListApi();
+    await fetchMatchesListApi();
   }
 }
