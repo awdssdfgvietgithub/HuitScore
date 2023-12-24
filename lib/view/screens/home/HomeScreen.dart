@@ -1,4 +1,3 @@
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:huit_score/model/foot/ImageUrlModel.dart';
@@ -108,7 +107,7 @@ class _HomeScreen extends State<HomeScreen> {
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: [
-                                for(int index = 1; index <= 3; index++)
+                                for (int index = 1; index <= 3; index++)
                                   const HomeTopShimmer2()
                               ],
                             ),
@@ -118,49 +117,68 @@ class _HomeScreen extends State<HomeScreen> {
                         case Status.SUCCESS:
                           List<MatchScheduleModel> liveMatches =
                               model.liveMatches;
-                          return SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                for (int index = 0;
-                                index < (isShowAllLiveMatches
-                                    ? liveMatches.length
-                                    : liveMatches.length.clamp(0, 3));
-                                index++)
-                                  LiveMatchItem(
-                                    model: liveMatches[index],
-                                    homeTeamImageUrl: _imageUrlViewModel.imageUrls
-                                        .firstWhere(
-                                          (item) =>
-                                      item.id ==
-                                          (liveMatches[index].homeTeam?.id)
-                                              .toString(),
-                                      orElse: () => ImageUrlModel(),
-                                    )
-                                        .url ??
-                                        '',
-                                    awayTeamImageUrl: _imageUrlViewModel.imageUrls
-                                        .firstWhere(
-                                          (item) =>
-                                      item.id ==
-                                          (liveMatches[index].awayTeam?.id)
-                                              .toString(),
-                                      orElse: () => ImageUrlModel(),
-                                    )
-                                        .url ??
-                                        '',
-                                    resStringFound: mockImageResData
-                                        .firstWhere(
-                                          (item) => item.id ==
-                                          liveMatches[index].tournament?.tournamentId,
-                                      orElse: () => ImageResModel(),
-                                    )
-                                        .resString ??
-                                        '',
-                                  ),
-                              ],
-                            ),
-                          );
+                          if (liveMatches.isEmpty) {
+                            return const Center(
+                              child: NotFoundMatches(
+                                title: 'So Sad!',
+                                subTitle: 'There are currently no matches.',
+                              ),
+                            );
+                          } else {
+                            return SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  for (int index = 0;
+                                      index <
+                                          (isShowAllLiveMatches
+                                              ? liveMatches.length
+                                              : liveMatches.length.clamp(0, 3));
+                                      index++)
+                                    LiveMatchItem(
+                                      model: liveMatches[index],
+                                      homeTeamImageUrl: _imageUrlViewModel
+                                              .imageUrls
+                                              .firstWhere(
+                                                (item) =>
+                                                    item.id ==
+                                                    (liveMatches[index]
+                                                            .homeTeam
+                                                            ?.id)
+                                                        .toString(),
+                                                orElse: () => ImageUrlModel(),
+                                              )
+                                              .url ??
+                                          '',
+                                      awayTeamImageUrl: _imageUrlViewModel
+                                              .imageUrls
+                                              .firstWhere(
+                                                (item) =>
+                                                    item.id ==
+                                                    (liveMatches[index]
+                                                            .awayTeam
+                                                            ?.id)
+                                                        .toString(),
+                                                orElse: () => ImageUrlModel(),
+                                              )
+                                              .url ??
+                                          '',
+                                      resStringFound: mockImageResData
+                                              .firstWhere(
+                                                (item) =>
+                                                    item.id ==
+                                                    liveMatches[index]
+                                                        .tournament
+                                                        ?.tournamentId,
+                                                orElse: () => ImageResModel(),
+                                              )
+                                              .resString ??
+                                          '',
+                                    ),
+                                ],
+                              ),
+                            );
+                          }
                         case null:
                       }
                       return Container();
